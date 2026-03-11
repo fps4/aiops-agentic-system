@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiops-platform.local/schemas/policy.schema.json",
+  "title": "PolicyProfile",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "profile_name",
+    "action_policy",
+    "residency_policy",
+    "model_policy"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0.0" },
+    "profile_name": { "type": "string", "minLength": 1 },
+    "action_policy": {
+      "type": "object",
+      "required": ["default_execution_mode"],
+      "properties": {
+        "default_execution_mode": {
+          "type": "string",
+          "enum": ["approval_required", "auto_allowed"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "residency_policy": {
+      "type": "object",
+      "required": ["allowed_regions"],
+      "properties": {
+        "allowed_regions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "model_policy": {
+      "type": "object",
+      "required": ["allowed_providers"],
+      "properties": {
+        "allowed_providers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

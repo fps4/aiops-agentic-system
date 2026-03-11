@@ -1,0 +1,187 @@
+openapi: 3.1.0
+info:
+  title: AIOps Platform API
+  version: 1.0.0
+  description: Starter API contract for ingestion, curated feedback, and alert publishing.
+servers:
+  - url: https://api.aiops.local
+security:
+  - bearerAuth: []
+paths:
+  /v1/ingestion/events:
+    post:
+      summary: Ingest normalized event envelope
+      operationId: ingestEvent
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XCorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestionEvent'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/agent/deployments/{deploymentId}/feedback:
+    get:
+      summary: Get curated operational feedback for a deployment
+      operationId: getDeploymentFeedback
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XCorrelationId'
+        - name: deploymentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deployment feedback
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentFeedback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/notifications/alerts:
+    post:
+      summary: Publish formatted alert payload
+      operationId: publishAlert
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XCorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertMessage'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    XRequestId:
+      name: X-Request-Id
+      in: header
+      required: true
+      schema:
+        type: string
+    XCorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: false
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    IngestionEvent:
+      type: object
+      required: [schema_version, event_id, signal_type, observed_at]
+      properties:
+        schema_version:
+          type: string
+          const: "1.0.0"
+        event_id:
+          type: string
+        signal_type:
+          type: string
+        service:
+          type: string
+        environment:
+          type: string
+        observed_at:
+          type: string
+          format: date-time
+      additionalProperties: true
+    DeploymentFeedback:
+      type: object
+      required: [schema_version, deployment_id, service, risk_level, recommended_actions]
+      properties:
+        schema_version:
+          type: string
+          const: "1.0.0"
+        deployment_id:
+          type: string
+        service:
+          type: string
+        risk_level:
+          type: string
+          enum: [low, medium, high]
+        recommended_actions:
+          type: array
+          items:
+            type: object
+            required: [action, execution_mode]
+            properties:
+              action:
+                type: string
+              execution_mode:
+                type: string
+                enum: [auto_allowed, approval_required]
+    AlertMessage:
+      type: object
+      required: [schema_version, alert_id, anomaly_id, workflow_id, severity, summary]
+      properties:
+        schema_version:
+          type: string
+          const: "1.0.0"
+        alert_id:
+          type: string
+        anomaly_id:
+          type: string
+        workflow_id:
+          type: string
+        severity:
+          type: string
+          enum: [low, medium, high, critical]
+        summary:
+          type: string
+    Error:
+      type: object
+      required: [code, message, trace_id]
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+        trace_id:
+          type: string

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiops-platform.local/schemas/workflow.schema.json",
+  "title": "Workflow",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "workflow_id",
+    "anomaly_id",
+    "state",
+    "started_at"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0.0" },
+    "workflow_id": { "type": "string", "minLength": 1 },
+    "anomaly_id": { "type": "string", "minLength": 1 },
+    "state": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "waiting_approval",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "detection_validation",
+        "correlation",
+        "historical_comparison",
+        "rca_synthesis",
+        "recommendation_generation"
+      ]
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "started_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

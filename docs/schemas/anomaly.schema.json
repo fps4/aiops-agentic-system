@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiops-platform.local/schemas/anomaly.schema.json",
+  "title": "Anomaly",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "anomaly_id",
+    "service",
+    "environment",
+    "severity",
+    "confidence",
+    "observed_at"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0.0" },
+    "anomaly_id": { "type": "string", "minLength": 1 },
+    "service": { "type": "string", "minLength": 1 },
+    "environment": { "type": "string", "minLength": 1 },
+    "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "baseline_value": { "type": "number" },
+    "observed_value": { "type": "number" },
+    "delta": { "type": "number" },
+    "suppression_key": { "type": "string" },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "observed_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}
