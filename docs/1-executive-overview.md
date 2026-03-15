@@ -2,7 +2,7 @@
 
 ## Observe - Engage - Govern
 
-The AIOps Platform is a sovereign, open-source-first observability and incident intelligence control plane that runs fully in customer-owned data centers. It detects anomalies, orchestrates AI-assisted root-cause analysis (RCA), and delivers actionable alerts while keeping data, operations, and policy control inside the organization boundary.
+The AIOps Agentic System is a sovereign, open-source-first observability and incident intelligence control plane that runs fully in customer-owned data centers. It detects anomalies, orchestrates AI-assisted root-cause analysis (RCA), and delivers actionable alerts while keeping data, operations, and policy control inside the organization boundary.
 
 Phase 1 focuses on **Observe + Engage**. Autonomous remediation is intentionally out of scope.
 

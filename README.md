@@ -1,1 +1,1 @@
-# aiops-platform
+# aiops-agentic-system
