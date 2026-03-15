@@ -1,6 +1,6 @@
 # Architecture Decision Records (ADRs)
 
-This folder captures key technology decisions for the sovereign AIOps platform.
+This folder captures key technology decisions for the sovereign AIOps Agentic System.
 
 Status meanings:
 - **Proposed**: recommended, awaiting confirmation

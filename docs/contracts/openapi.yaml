@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: AIOps Platform API
+  title: AIOps Agentic System API
   version: 1.0.0
   description: Starter API contract for ingestion, curated feedback, and alert publishing.
 servers:

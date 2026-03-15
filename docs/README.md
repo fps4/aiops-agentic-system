@@ -11,7 +11,7 @@
 - [7-testing-strategy.md](7-testing-strategy.md)
 - [8-compliance-evidence-plan.md](8-compliance-evidence-plan.md)
 
-This set defines the Phase 1 scope for a sovereign AIOps platform running on open-source systems in customer-owned data centers.
+This set defines the Phase 1 scope for a sovereign AIOps Agentic System running on open-source systems in customer-owned data centers.
 It now also bakes in Dutch healthcare compliance-by-design requirements from the start (NEN 7510/7513, AVG/GDPR, DPIA, and AI oversight controls).
 
 ## Next docs (planned)
