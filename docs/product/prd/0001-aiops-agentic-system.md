@@ -65,9 +65,10 @@ Platform teams operating multi-cluster, multi-environment infrastructure lack a 
 
 **FR-3 Agentic investigation workflow**
 
-1. Anomaly detection triggers a deterministic, replayable investigation pipeline with stages: detection validation, signal correlation, historical comparison, RCA synthesis, recommendation generation.
+1. Anomaly detection triggers a deterministic, replayable investigation pipeline with stages: detection validation, signal correlation, topology traversal, historical comparison, RCA synthesis, recommendation generation.
 2. Stage-level inputs, outputs, confidence scores, and model metadata are persisted for audit and replay.
 3. The workflow enforces policy gates before any sensitive action or recommendation.
+4. The topology graph (FR-11) is provided as context to the RCA synthesis stage; upstream and downstream neighbours of the affected service are included in the correlation scope.
 
 **FR-4 Alerting and investigation handoff**
 
@@ -105,6 +106,15 @@ Platform teams operating multi-cluster, multi-environment infrastructure lack a 
 2. Every AI output includes provenance: model identity, prompt class, confidence score, and evidence links.
 3. Human approval checkpoints are enforced for any recommendation that can affect production operations or patient-related data flows.
 4. Sensitive workloads route exclusively to self-hosted or approved EU-jurisdiction model endpoints.
+
+**FR-11 Automatic topology and dependency mapping**
+
+1. The platform continuously derives a service dependency graph from ingested distributed traces (OTel span parent–child relationships and `peer.service` attributes), without requiring manual configuration.
+2. The graph captures service-to-service call relationships, infrastructure bindings (pod → node → cluster), and namespace boundaries, scoped per environment.
+3. Graph state is versioned and timestamped; historical snapshots are retained to support incident replay and regression analysis against a past topology.
+4. Topology drift events — new edges, removed edges, and cardinality changes — are detected and emitted as first-class events that can trigger anomaly detection and policy evaluation.
+5. The graph is queryable at investigation time: given a service identifier, the platform returns its direct upstream callers, direct downstream dependencies, and the full propagation path to any infrastructure layer.
+6. Graph data is available via the agent interface (FR-10) so that agentic clients can retrieve dependency context as part of RCA reasoning.
 
 **FR-10 Agent integration interface**
 

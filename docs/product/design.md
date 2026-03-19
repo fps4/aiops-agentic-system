@@ -16,15 +16,16 @@ Defines the interaction model, user journeys, and UX constraints for the AIOps A
 
 ### 1. Autonomous pre-investigation
 
-Trigger: anomaly detection event.
+Trigger: anomaly detection event or topology drift event.
 
 System behaviour before the user receives an alert:
 
 1. Deduplicate and suppress repeated anomalies.
 2. Correlate service, infrastructure, deployment, and ownership context.
-3. Compare with historical incidents and recent release and config changes.
-4. Generate probable RCA with confidence and evidence.
-5. Attach recommended actions and runbook mappings.
+3. Traverse the dependency graph: identify upstream callers and downstream dependencies of the affected service and include their health signals in the correlation scope.
+4. Compare with historical incidents and recent release and config changes.
+5. Generate probable RCA with confidence and evidence.
+6. Attach recommended actions and runbook mappings.
 
 Outcome: a structured incident summary ready for human review.
 
@@ -51,6 +52,7 @@ Pre-built dashboard intents:
 - Baseline vs anomaly comparison.
 - RCA evidence explorer.
 - Deployment impact and rollback validation view.
+- Service dependency graph: affected node highlighted, upstream callers and downstream dependencies surfaced, edge health (error rate, latency) colour-coded at the time of the incident.
 
 Navigation: alert deep-link opens with zero manual filter setup. Responder can pivot by cluster, namespace, service, and time, and share stable links across teams.
 

@@ -27,7 +27,7 @@ For organizations in regulated sectors such as Dutch healthcare, the problem com
 
 ## Goals
 
-- On-call responders receive a pre-investigated incident summary — probable cause, confidence score, and recommended actions — before they open a dashboard.
+- On-call responders receive a pre-investigated incident summary — probable cause, confidence score, recommended actions, and affected dependency scope — before they open a dashboard.
 - Alert fatigue decreases: deduplication, suppression, and correlation reduce noise for platform teams.
 - MTTR falls for incidents where root cause is detectable from telemetry and deployment history.
 - All incident reasoning and AI usage is auditable and traceable to source evidence.
