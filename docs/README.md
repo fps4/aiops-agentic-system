@@ -1,35 +1,26 @@
-# Documentation Index
+# Documentation index
 
-## Core product docs
+## Product
 
-- [1-executive-overview.md](1-executive-overview.md)
-- [2-product-requirements.md](2-product-requirements.md)
-- [3-product-design.md](3-product-design.md)
-- [4-technical-architecture.md](4-technical-architecture.md)
-- [5-implementation-readiness.md](5-implementation-readiness.md)
-- [6-repository-bootstrap.md](6-repository-bootstrap.md)
-- [7-testing-strategy.md](7-testing-strategy.md)
-- [8-compliance-evidence-plan.md](8-compliance-evidence-plan.md)
+- [Vision](product/vision.md) — problem, users, goals, and success metrics
+- [Product design](product/design.md) — user journeys, UX constraints, interaction model
+- [PRD 0001: AIOps Agentic System — Phase 1](product/prd/0001-aiops-agentic-system.md) — Phase 1 requirements
 
-This set defines the Phase 1 scope for a sovereign AIOps Agentic System running on open-source systems in customer-owned data centers.
-It now also bakes in Dutch healthcare compliance-by-design requirements from the start (NEN 7510/7513, AVG/GDPR, DPIA, and AI oversight controls).
+## Architecture
 
-## Next docs (planned)
+- [Overview](architecture/overview.md) — C4 L1 system context and L2 container map
+- [Component designs](architecture/components/README.md) — C4 L3 internal design per container
+- [Architecture decisions](architecture/decisions/README.md) — ADR index
 
-- POC and validation plan
-- Operational guidelines by role
-- Component deep dives
-- Architecture decisions (ADRs)
+## API contracts
 
-## Architecture decisions
+- [API index](api/README.md)
+- [OpenAPI spec](api/openapi.yaml)
+- [Schema index](api/schemas/README.md)
 
-- [decisions/README.md](decisions/README.md)
+## Guides
 
-## Component designs
-
-- [components/README.md](components/README.md)
-
-## Contracts and schemas
-
-- [contracts/README.md](contracts/README.md)
-- [schemas/README.md](schemas/README.md)
+- [Local setup](guides/setup.md)
+- [Testing strategy](guides/testing.md)
+- [Implementation readiness](guides/implementation-readiness.md)
+- [Compliance evidence plan](guides/compliance-evidence.md)
